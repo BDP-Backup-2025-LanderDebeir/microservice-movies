@@ -1,0 +1,30 @@
+services:
+  movies-db.howestprime.dev:
+    image: postgres
+    restart: always
+    env_file:
+      - .movies-db.howestprime.dev.env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - movies-howestprime-dev
+    ports:
+      - 40021:5000
+    
+  messagebroker.howestprime.dev:
+    image: cloudamqp/lavinmq
+    restart: always
+    ports:
+      - 40000:5672
+      - 40001:15672
+    networks:
+      - movies-howestprime-dev
+
+networks:
+  movies-howestprime-dev:
+    ipam:
+      config:
+        - subnet: 10.20.0.0/16
+
+volumes:
+  postgres:
