@@ -2,7 +2,7 @@
   servers:
     # Added by API Auto Mocking Plugin
     - description: SwaggerHub API Auto Mocking
-      url: https://virtserver.swaggerhub.com/MATTHIASBLOMME_1/microservice-movies/1.0.0
+      url: https://virtserver.swaggerhub.com/landersapis/microservice-movies/1.0.0
   info:
     description: This is a simple API
     version: "1.0.0"
