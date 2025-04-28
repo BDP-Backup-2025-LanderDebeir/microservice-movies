@@ -1,5 +1,7 @@
 using Domaincrafters.Application;
+using Howestprime.Movies.Domain.Movie;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations;
+using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Repositories;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,7 +46,8 @@ public static class EntityFrameworkServices
         this IServiceCollection services
     )
     {
-        return services;
+        return services
+            .AddScoped<IMovieRepository, EFMovieRepository>();
     }
 
     private static IServiceCollection AddQueries(
