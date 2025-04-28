@@ -36,6 +36,10 @@ public class Movie : Entity<MovieId>
 
         movie.ValidateState();
 
+        DomainEventPublisher
+            .Instance
+            .Publish(MovieRegistered.Create(id.Value, title, description, year, duration, genres, actors, ageRating, posterUrl));
+
         return movie;
     }
     public override void ValidateState()
@@ -60,9 +64,9 @@ public class Movie : Entity<MovieId>
 
     private static void EnsureValidYear(int year)
     {
-        if (int.IsNegative(year))
+        if (int.IsNegative(year) || year > DateTime.Now.Year)
         {
-            throw new ArgumentException("Release year can not be negative");
+            throw new ArgumentException("Release year can not be negative or in the future");
         }
     }
 
