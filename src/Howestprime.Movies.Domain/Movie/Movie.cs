@@ -7,32 +7,32 @@ public sealed class MovieId(string? id = "") : UuidEntityId(id);
 public class Movie : Entity<MovieId>
 {
     public string Title { get; private set; }
+    public string Description { get; private set; }
     public int Year { get; private set; }
     public int Duration { get; private set; }
     public string Genres { get; private set; }
     public string Actors { get; private set; }
-    public string Directors { get; private set; }
     public int AgeRating { get; private set; }
     public string PosterUrl { get; private set; }
 
-    private Movie(MovieId id, string title, int year, int duration, string genres, string actors, string directors, int ageRating, string posterUrl): base(id)
+    private Movie(MovieId id, string title, string description, int year, int duration, string genres, string actors, int ageRating, string posterUrl): base(id)
     {
         Title = title;
+        Description = description;
         Year = year;
         Duration = duration;
         Genres = genres;
         Actors = actors;
-        Directors = directors;
         AgeRating = ageRating;
         PosterUrl = posterUrl;
     }
 
 
-    public static Movie Create(string title, int year, int duration, string genres, string actors, string directors, int ageRating, string posterUrl, MovieId? id = null)
+    public static Movie Create(string title, string description, int year, int duration, string genres, string actors, int ageRating, string posterUrl, MovieId? id = null)
     {
         id ??= new MovieId();
 
-        Movie movie = new Movie(id, title, year, duration, genres, actors, directors, ageRating, posterUrl);
+        Movie movie = new Movie(id, title, description, year, duration, genres, actors, ageRating, posterUrl);
 
         movie.ValidateState();
 
@@ -45,7 +45,7 @@ public class Movie : Entity<MovieId>
         EnsureValidDuration(Duration);
         EnsureValidGenres(Genres);
         EnsureValidActors(Actors);
-        EnsureValidDirectors(Directors);
+        EnsureValidDescription(Description);
         EnsureValidAgeRating(AgeRating);
         EnsureValidPosterUrl(PosterUrl);
     }
@@ -89,11 +89,11 @@ public class Movie : Entity<MovieId>
             throw new ArgumentException("Actors can not be empty");
         }
     }
-    private static void EnsureValidDirectors(string directors)
+    private static void EnsureValidDescription(string description)
     {
-        if (string.IsNullOrWhiteSpace(directors))
+        if (string.IsNullOrWhiteSpace(description))
         {
-            throw new ArgumentException("Directors can not be empty");
+            throw new ArgumentException("Description can not be empty");
         }
     }
 

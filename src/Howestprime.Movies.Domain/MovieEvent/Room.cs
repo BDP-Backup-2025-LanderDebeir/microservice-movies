@@ -27,7 +27,8 @@ public class Room : Entity<RoomId>
 
     public override void ValidateState()
     {
-       
+        EnsureValidName(Name);
+        EnsureValidCapacity(Capacity);
     }
 
     private static void EnsureValidName(string name)

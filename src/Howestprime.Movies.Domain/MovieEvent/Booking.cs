@@ -48,7 +48,8 @@ public class Booking : Entity<BookingId>
 
     public override void ValidateState()
     {
-        throw new NotImplementedException();
+        EnsureValidStandardVisitors(StandardVisitors);
+        EnsureValidDiscountVisitors(DiscountVisitors);
     }
 
     private static void EnsureValidStandardVisitors(int standardVisitors)
@@ -63,14 +64,6 @@ public class Booking : Entity<BookingId>
         if (int.IsNegative(discountVisitors))
         {
             throw new ArgumentException("Discount visitors can not be empty");
-        }
-    }
-
-    private static void EnsureSeatNumbersNotEmpty(List<int> seatNumbers)
-    {
-        if(seatNumbers.Equals(new List<int>))
-        {
-            throw new ArgumentException("Reserved seat numbers can not be empty");
         }
     }
 }

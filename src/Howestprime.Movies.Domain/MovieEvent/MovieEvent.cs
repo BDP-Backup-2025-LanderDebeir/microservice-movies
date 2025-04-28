@@ -38,7 +38,8 @@ public class MovieEvent : Entity<MovieEventId>
 
     public override void ValidateState()
     {
-        throw new NotImplementedException();
+        EnsureValidVisitors(Visitors);
+        EnsureValidCapacity(Capacity);
     }
 
     public static void EnsureValidVisitors(int visitors)
@@ -49,7 +50,7 @@ public class MovieEvent : Entity<MovieEventId>
         }
     }
 
-    public static EnsureValidCapacity(int capacity)
+    public static void EnsureValidCapacity(int capacity)
     {
         if (int.IsNegative(capacity))
         {
