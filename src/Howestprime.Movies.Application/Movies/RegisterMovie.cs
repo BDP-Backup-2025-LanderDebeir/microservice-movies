@@ -27,7 +27,7 @@ public sealed class RegisterMovie(
     private readonly ILogger _logger = logger;
     public async Task<string> Execute(RegisterMovieInput input)
     {
-        Movie movie = Movie.Create(input.Title, input.Description, input.Year, input.Duration input.Genre, input.Actors, input.AgeRating, input.PosterUrl);
+        Movie movie = Movie.Create(input.Title, input.Description, input.Year, input.Duration, input.Genre, input.Actors, input.AgeRating, input.PosterUrl);
 
         await _movieRepository.Save(movie);
         await _unitOfWork.Do();
