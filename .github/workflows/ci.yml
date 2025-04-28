@@ -24,6 +24,7 @@ jobs:
             
     
     coverage:
+        needs: testing
         name: Code Coverage
         runs-on: ubuntu-latest
         steps:
