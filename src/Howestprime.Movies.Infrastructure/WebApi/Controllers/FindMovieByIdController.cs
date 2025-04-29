@@ -13,7 +13,7 @@ namespace Howestprime.Movies.Infrastructure.WebApi.Controllers;
 public sealed record FindMovieByIdParameters
 {
     [Required]
-    public required string Id { get; set; }
+    public required Guid Id { get; set; }
 }
 
 public sealed class FindMovieByIdController
@@ -23,7 +23,7 @@ public sealed class FindMovieByIdController
         [FromServices] IUseCase<FindMovieByIdInput, Task<MovieData?>> findMovieById
         )
     {
-        FindMovieByIdInput input = new(parameters.Id);
+        FindMovieByIdInput input = new(parameters.Id.ToString());
         MovieData? movie = await findMovieById.Execute(input);
         if (movie is null)
             return TypedResults.NotFound($"No movies with id {parameters.Id} found");
