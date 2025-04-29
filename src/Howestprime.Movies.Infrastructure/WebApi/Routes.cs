@@ -48,5 +48,11 @@ public static class Routes
             .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
             .WithOpenApi();
 
+        movieGroup.MapGet("/{id}", FindMovieByIdController.Invoke)
+            .WithName("FindMovieById")
+            .WithDescription("Find a movie by id")
+            .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
+            .WithOpenApi();
+
     }
 }
