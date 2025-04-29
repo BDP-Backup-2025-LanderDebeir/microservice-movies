@@ -17,14 +17,15 @@ public static class Routes
         Description = "A simple API to manage movies and movie events.",
         Contact = new OpenApiContact
         {
-            Name = "Matthias Blomme",
-            Email = "matthias.blomme@howest.be"
+            Name = "Lander Debeir",
+            Email = "lander.debeir@student.howest.be"
         }
     };
 
     public static WebApplication MapRoutes(this WebApplication app)
     {
         MapMovieRoutes(app);
+        MapMovieEventsRoutes(app);
         return app;
     }
 
@@ -32,7 +33,6 @@ public static class Routes
     {
         var movieGroup = app.MapGroup("/api/movies")
             .WithTags("Movies")
-            .WithDescription("Endpoints related to movie registration")
             .WithOpenApi();
 
         movieGroup.MapPost("/", RegisterMovieController.Invoke)
@@ -54,5 +54,19 @@ public static class Routes
             .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
             .WithOpenApi();
 
+    }
+
+    private static void MapMovieEventsRoutes(WebApplication app)
+    {
+        var movieEventGroup = app.MapGroup("/api/movie-events")
+            .WithTags("Movie Events")
+            .WithOpenApi();
+
+        movieEventGroup.MapPost("/", ScheduleMovieEventController.Invoke)
+            .WithName("ScheduleMovieEvent")
+            .WithDescription("Schedule a movie event")
+            .WithMetadata(new ConsumesAttribute(MediaTypeNames.Application.Json))
+            .AddEndpointFilter<BodyValidatorFilter<ScheduleMovieEventBody>>()
+            .WithOpenApi();
     }
 }
