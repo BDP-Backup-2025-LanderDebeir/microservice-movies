@@ -11,12 +11,12 @@ public sealed record FindMovieByIdInput(
 
 public class FindMovieById(
     IFindMovieByIdQuery query
-    ) : IUseCase<FindMovieByIdInput, Task<MovieData>>
+    ) : IUseCase<FindMovieByIdInput, Task<MovieData?>>
 {
     private readonly IFindMovieByIdQuery _query = query;
 
-    public async Task<MovieData> Execute(FindMovieByIdInput input)
+    public async Task<MovieData?> Execute(FindMovieByIdInput input)
     {
-        return await _query.Fetch(input.Id) ?? throw new InvalidOperationException($"Movie with id ${input.Id} not found");
+        return await _query.Fetch(input.Id);
     }
 }

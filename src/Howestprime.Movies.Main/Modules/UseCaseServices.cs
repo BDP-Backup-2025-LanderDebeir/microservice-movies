@@ -42,7 +42,7 @@ public static class UseCaseServices
     private static IServiceCollection AddFindMovieById(this IServiceCollection services)
     {
         return services
-            .AddScoped<IUseCase<FindMovieByIdInput, Task<MovieData>>>(ServiceProvider =>
+            .AddScoped<IUseCase<FindMovieByIdInput, Task<MovieData?>>>(ServiceProvider =>
             {
                 var query = ServiceProvider.GetRequiredService<IFindMovieByIdQuery>();
                 return new FindMovieById(query);
