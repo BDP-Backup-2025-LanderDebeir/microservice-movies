@@ -16,11 +16,14 @@ public sealed record FindMovieByFiltersParameters
 
 public sealed class FindMovieByFiltersController
 {
-    public static async Task<Results<Ok<MoviesDTO>, BadRequest>> Invoke(
+    public static async Task<Results<Ok<MoviesDTO>, BadRequest<string>>> Invoke(
         [AsParameters] FindMovieByFiltersParameters parameters,
-        [FromServices] IUseCase<FindMovieByFilterInput, Task<IReadOnlyList<MovieData>>> findMovieByFilter
+        [FromServices] IUseCase<FindMovieByFilterInput, Task<IReadOnlyList<MovieData>>> findMovieByFilter,
+        [FromHeader(Name ="x-user-role")] string userRole
         )
     {
+        if (userRole.ToLower() != "manager")
+            return TypedResults.BadRequest("Only managers can access this content");
         FindMovieByFilterInput input = new(
             parameters.Title,
             parameters.Genre
