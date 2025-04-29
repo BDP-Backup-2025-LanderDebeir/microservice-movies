@@ -12,23 +12,21 @@ public class MovieEvent : Entity<MovieEventId>
     public DateTime Time { get; private set; }
     public int Visitors { get; private set; }
     public int Capacity { get; private set; }
-    public IReadOnlyList<Booking> Bookings { get; private set; }
 
-    private MovieEvent(MovieEventId id, MovieId movieId, RoomId roomId, DateTime time, int visitors, int capacity) : base(id)
+    private MovieEvent(MovieEventId id, MovieId movieId, RoomId roomId, DateTime time, int capacity) : base(id)
     {
         MovieId = movieId;
         RoomId = roomId;
         Time = time;
-        Visitors = visitors;
+        Visitors = 0;
         Capacity = capacity;
-        Bookings = new List<Booking>();
     }
 
-    public static MovieEvent Create(MovieId movieId, RoomId roomId, DateTime time, int visitors, int capacity, MovieEventId? id = null)
+    public static MovieEvent Create(MovieId movieId, RoomId roomId, DateTime time, int capacity, MovieEventId? id = null)
     {
         id ??= new MovieEventId();
 
-        MovieEvent movieEvent = new MovieEvent(id, movieId, roomId, time, visitors, capacity);
+        MovieEvent movieEvent = new MovieEvent(id, movieId, roomId, time, capacity);
 
         movieEvent.ValidateState();
 
@@ -38,23 +36,28 @@ public class MovieEvent : Entity<MovieEventId>
 
     public override void ValidateState()
     {
-        EnsureValidVisitors(Visitors);
         EnsureValidCapacity(Capacity);
-    }
-
-    public static void EnsureValidVisitors(int visitors)
-    {
-        if (int.IsNegative(visitors))
-        {
-            throw new ArgumentException("Amount of visitors has to be positive");
-        }
+        EnsureDayInFuture(Time);
+        EnsureValidTime(Time);
     }
 
     public static void EnsureValidCapacity(int capacity)
     {
-        if (int.IsNegative(capacity))
+        if (capacity <= 0)
         {
             throw new ArgumentException("Capacity has to be positive");
         }
+    }
+
+    public static void EnsureDayInFuture(DateTime time)
+    {
+        if (time.Date.CompareTo(DateTime.Now.Date) != 1)
+            throw new ArgumentException("Event has to be planned in the future");
+    }
+
+    public static void EnsureValidTime(DateTime time)
+    {
+        if (time.TimeOfDay != new TimeSpan(15, 0, 0) || time.TimeOfDay != new TimeSpan(19, 0, 0))
+            throw new ArgumentException("Event has to at either 15:00 or 19:00");
     }
 }
