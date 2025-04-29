@@ -50,13 +50,13 @@ jobs:
                 name: coverage-report
                 path: ./coverage/report
                 if-no-files-found: error
-            - name: Check coverage treshold
+            - name: Check coverage threshold
               run: |
-                COVERAGE_RATE=$(grep -o 'line-rate="[0-9.]*"' ./coverage/**/coverage.cobertura.xml | head -1 | grep -o '[0-9]¨*')
-                COVERAGE=$(echo $COVERAGE_RATE *100 | bc)
-                echo "Code-coverage: $COVERAGE%"
-                if (( $(echo "$COVERAGE < 95 | bc -l") )); then
-                    echo "Code coverage is below 95%."
-                    exit 1
+                COVERAGE_RATE=$(grep -o 'line-rate="[0-9.]*"' ./coverage/**/coverage.cobertura.xml | head -1 | grep -o '[0-9.]*')
+                COVERAGE=$(echo "$COVERAGE_RATE * 100" | bc)
+                echo "Code coverage: $COVERAGE%"
+                if (( $(echo "$COVERAGE < 95" | bc -l) )); then
+                  echo "Code coverage is below 95%."
+                  exit 1
                 fi
               shell: bash
