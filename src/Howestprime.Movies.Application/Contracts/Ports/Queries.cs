@@ -7,3 +7,8 @@ public interface IFindMovieQuery
 {
     Task<IReadOnlyList<MovieData>> Fetch(Expression<Func<MovieData, bool>> filter);
 }
+
+public interface IFindMovieByIdQuery
+{
+    Task<MovieData?> Fetch(string id);
+}
