@@ -57,7 +57,8 @@ public class MovieEvent : Entity<MovieEventId>
 
     public static void EnsureValidTime(DateTime time)
     {
-        if (time.TimeOfDay != new TimeSpan(15, 0, 0) || time.TimeOfDay != new TimeSpan(19, 0, 0))
+        if (!((time.Hour == 15 && time.Minute == 0 && time.Second == 0) || (time.Hour == 19 && time.Minute == 0 && time.Second == 0)))
             throw new ArgumentException("Event has to at either 15:00 or 19:00");
     }
 }
+
