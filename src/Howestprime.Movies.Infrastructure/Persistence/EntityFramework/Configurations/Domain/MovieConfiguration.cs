@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations.Data.Domain;
+namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations.Domain;
 
 public class MovieConfiguration : IEntityTypeConfiguration<Movie>
 {

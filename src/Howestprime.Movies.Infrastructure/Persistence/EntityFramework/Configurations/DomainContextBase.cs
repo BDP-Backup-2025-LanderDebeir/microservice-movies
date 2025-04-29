@@ -1,5 +1,5 @@
 using Howestprime.Movies.Domain.Movie;
-using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations.Data.Domain;
+using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations;
