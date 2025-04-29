@@ -26,10 +26,12 @@ public class ScheduleMovieEventTests
     public async Task Execute_WithValidInput_ShouldScheduleEventAsync()
     {
         //Arrange
+        Room room = new(new RoomId(), "Velet Room", 100);
+        _movieEventRepository.Rooms.Add(room);
         Movie movie = Movie.Create("A minecraft movie", "It's minecrafting time", 2025, 120, "Every Genre", "Jack Black, Jason Momoa", 3, "example.com/poster.png");
         await _movieRepository.Save(movie);
         DateTime time = new(2099, 12, 31, 15, 0, 0);
-        ScheduleMovieEventInput input = new(movie.Id.Value, time.TimeOfDay, time.Date, new RoomId().Value, 100);
+        ScheduleMovieEventInput input = new(movie.Id.Value, time.TimeOfDay, time.Date, room.Id.Value);
 
         //Act
         var result = await _scheduleMovieEvent.Execute(input);
@@ -42,8 +44,8 @@ public class ScheduleMovieEventTests
         Assert.Equal(result, movieEvent.Id.Value);
         Assert.Equal(movie.Id, movieEvent.MovieId);
         Assert.Equal(time, movieEvent.Time);
-        Assert.Equal(input.RoomId, movieEvent.RoomId.Value);
-        Assert.Equal(input.Capacity, movieEvent.Capacity);
+        Assert.Equal(room.Id, movieEvent.RoomId);
+        Assert.Equal(room.Capacity, movieEvent.Capacity);
     }
 
     [Fact]
@@ -51,7 +53,7 @@ public class ScheduleMovieEventTests
     {
         //Arrange
         MovieId invalidId = new();
-        ScheduleMovieEventInput input = new(invalidId.Value, DateTime.Now.TimeOfDay, DateTime.Now.Date, "", -1);
+        ScheduleMovieEventInput input = new(invalidId.Value, DateTime.Now.TimeOfDay, DateTime.Now.Date, new RoomId().Value);
 
         //Act + Assert
         _ = await Assert.ThrowsAsync<InvalidOperationException>(async () => await _scheduleMovieEvent.Execute(input));

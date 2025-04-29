@@ -10,8 +10,7 @@ public sealed record ScheduleMovieEventInput(
     string MovieId,
     TimeSpan Time,
     DateTime Date,
-    string RoomId,
-    int Capacity
+    string RoomId
     );
 
 public class ScheduleMovieEvent(
@@ -33,8 +32,9 @@ public class ScheduleMovieEvent(
         DateTime time = new DateTime(input.Date.Year, input.Date.Month, input.Date.Day, input.Time.Hours, input.Time.Minutes, 0);
 
         Movie movie = (await _movieRepository.ById(movieId)).Value;
+        Room room = (await _movieEventRepository.GetRoomById(roomId)).Value;
 
-        MovieEvent movieEvent = MovieEvent.Create(movieId, roomId, time, input.Capacity);
+        MovieEvent movieEvent = MovieEvent.Create(movieId, roomId, time, room.Capacity);
         await _movieEventRepository.Save(movieEvent);
         await _unitOfWork.Do();
 
