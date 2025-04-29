@@ -1,6 +1,7 @@
 using Domaincrafters.Application;
 using Howestprime.Movies.Application.Contracts.Ports;
 using Howestprime.Movies.Domain.Movie;
+using Howestprime.Movies.Domain.MovieEvent;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Queries;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Repositories;
@@ -49,7 +50,8 @@ public static class EntityFrameworkServices
     )
     {
         return services
-            .AddScoped<IMovieRepository, EFMovieRepository>();
+            .AddScoped<IMovieRepository, EFMovieRepository>()
+            .AddScoped<IMovieEventRepository, EFMovieEventRepository>();
     }
 
     private static IServiceCollection AddQueries(
