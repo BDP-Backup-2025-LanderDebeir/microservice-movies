@@ -1,6 +1,6 @@
 ﻿namespace Howestprime.Movies.Infrastructure.WebApi.Controllers.Responses
 {
-    public sealed record Movie(
+    public sealed record MovieDTO(
         string Id,
         string Title,
         string Genre,
