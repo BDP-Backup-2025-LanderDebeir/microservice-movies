@@ -12,7 +12,8 @@ public static class UseCaseServices
     {
         return services
             .AddRegisterMovie()
-            .AddFindMovieByFilter();
+            .AddFindMovieByFilter()
+            .AddFindMovieById();
     }
 
     private static IServiceCollection AddRegisterMovie(this IServiceCollection services)
@@ -35,6 +36,16 @@ public static class UseCaseServices
             {
                 var query = ServiceProvider.GetRequiredService<IFindMovieQuery>();
                 return new FindMovieByFilter(query);
+            });
+    }
+
+    private static IServiceCollection AddFindMovieById(this IServiceCollection services)
+    {
+        return services
+            .AddScoped<IUseCase<FindMovieByIdInput, Task<MovieData>>>(ServiceProvider =>
+            {
+                var query = ServiceProvider.GetRequiredService<IFindMovieByIdQuery>();
+                return new FindMovieById(query);
             });
     }
 }
