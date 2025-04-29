@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Howestprime.Movies.Application.Contracts.Ports;
 
-public interface IAllMoviesQuery
+public interface IFindMovieQuery
 {
     Task<IReadOnlyList<MovieData>> Fetch(Expression<Func<MovieData, bool>> filter);
 }
