@@ -23,14 +23,14 @@ public sealed class MovieEventConfiguration : IEntityTypeConfiguration<MovieEven
             id => id.Value,
             value => new MovieId(value)
             );
-        builder.HasOne("Movies").WithMany().HasForeignKey("MovieId");
+        builder.HasOne<Movie>().WithMany().HasForeignKey(x => x.MovieId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x => x.RoomId).ValueGeneratedNever();
         builder.Property(x => x.RoomId).HasConversion(
             id => id.Value,
             value => new RoomId(value)
             );
-        builder.HasOne("Rooms").WithMany().HasForeignKey("RoomId");
+        builder.HasOne<Room>().WithMany().HasForeignKey(x => x.RoomId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(x => x.Time);
         builder.Property(x => x.Visitors);
