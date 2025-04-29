@@ -8,8 +8,8 @@ namespace Howestprime.Movies.Application.MovieEvents;
 
 public sealed record ScheduleMovieEventInput(
     string MovieId,
-    TimeOnly Time,
-    DateOnly Date,
+    TimeSpan Time,
+    DateTime Date,
     string RoomId,
     int Capacity
     );
@@ -30,7 +30,7 @@ public class ScheduleMovieEvent(
     {
         MovieId movieId = new MovieId(input.MovieId);
         RoomId roomId = new RoomId(input.RoomId);
-        DateTime time = new DateTime(input.Date.Year, input.Date.Month, input.Date.Day, input.Time.Hour, input.Time.Minute, 0);
+        DateTime time = new DateTime(input.Date.Year, input.Date.Month, input.Date.Day, input.Time.Hours, input.Time.Minutes, 0);
 
         Movie movie = (await _movieRepository.ById(movieId)).Value;
 
