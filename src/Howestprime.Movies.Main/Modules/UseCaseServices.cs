@@ -1,8 +1,10 @@
 using Domaincrafters.Application;
 using Howestprime.Movies.Application.Contracts.Data;
 using Howestprime.Movies.Application.Contracts.Ports;
+using Howestprime.Movies.Application.MovieEvents;
 using Howestprime.Movies.Application.Movies;
 using Howestprime.Movies.Domain.Movie;
+using Howestprime.Movies.Domain.MovieEvent;
 
 namespace Howestprime.Movies.Main.Modules;
 
@@ -13,7 +15,8 @@ public static class UseCaseServices
         return services
             .AddRegisterMovie()
             .AddFindMovieByFilter()
-            .AddFindMovieById();
+            .AddFindMovieById()
+            .AddScheduleMovieEvent();
     }
 
     private static IServiceCollection AddRegisterMovie(this IServiceCollection services)
@@ -46,6 +49,19 @@ public static class UseCaseServices
             {
                 var query = ServiceProvider.GetRequiredService<IFindMovieByIdQuery>();
                 return new FindMovieById(query);
+            });
+    }
+
+    private static IServiceCollection AddScheduleMovieEvent(this IServiceCollection services)
+    {
+        return services
+            .AddScoped<IUseCase<ScheduleMovieEventInput, Task<string>>>(ServiceProvider =>
+            {
+                var movieEventRepository = ServiceProvider.GetRequiredService<IMovieEventRepository>();
+                var movieRepository = ServiceProvider.GetRequiredService<IMovieRepository>();
+                var unitOfWork = ServiceProvider.GetRequiredService<IUnitOfWork>();
+                var logger = ServiceProvider.GetRequiredService<ILogger<ScheduleMovieEvent>>();
+                return new ScheduleMovieEvent(movieEventRepository, movieRepository, unitOfWork, logger);
             });
     }
 }
