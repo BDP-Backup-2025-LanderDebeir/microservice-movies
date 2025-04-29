@@ -1,6 +1,8 @@
 using Domaincrafters.Application;
+using Howestprime.Movies.Application.Contracts.Ports;
 using Howestprime.Movies.Domain.Movie;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations;
+using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Queries;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Repositories;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +56,8 @@ public static class EntityFrameworkServices
         this IServiceCollection services
     )
     {
-        return services;
+        return services
+            .AddScoped<IFindMovieQuery, EFFindMovieQuery>();
     }
     
     public static WebApplication ApplyMigrations(this WebApplication app)
