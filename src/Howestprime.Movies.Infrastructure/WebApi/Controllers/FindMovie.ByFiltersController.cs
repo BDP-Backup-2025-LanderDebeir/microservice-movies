@@ -18,7 +18,6 @@ public sealed class FindMovieByFiltersController
 {
     public static async Task<Results<Ok<MoviesDTO>>> Invoke(
         [AsParameters] FindMovieByFiltersParameters parameters,
-        [FromHeader] string xUserRole,
         [FromServices] IUseCase<FindMovieByFilterInput, Task<IReadOnlyList<MovieData>>> findMovieByFilter
         )
     {

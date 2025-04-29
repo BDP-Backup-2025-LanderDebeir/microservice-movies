@@ -42,5 +42,11 @@ public static class Routes
              .AddEndpointFilter<BodyValidatorFilter<RegisterMovieBody>>()
              .WithOpenApi();
 
+        movieGroup.MapGet("/", FindMovieByFiltersController.Invoke)
+            .WithName("FindMovieByFilters")
+            .WithDescription("Lists movies by Title & genre")
+            .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
+            .WithOpenApi();
+
     }
 }
