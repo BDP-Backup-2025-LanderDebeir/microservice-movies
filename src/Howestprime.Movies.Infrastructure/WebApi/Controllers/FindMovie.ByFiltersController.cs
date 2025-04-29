@@ -16,7 +16,7 @@ public sealed record FindMovieByFiltersParameters
 
 public sealed class FindMovieByFiltersController
 {
-    public static async Task<Results<Ok<MoviesDTO>>> Invoke(
+    public static async Task<Results<Ok<MoviesDTO>, BadRequest>> Invoke(
         [AsParameters] FindMovieByFiltersParameters parameters,
         [FromServices] IUseCase<FindMovieByFilterInput, Task<IReadOnlyList<MovieData>>> findMovieByFilter
         )
