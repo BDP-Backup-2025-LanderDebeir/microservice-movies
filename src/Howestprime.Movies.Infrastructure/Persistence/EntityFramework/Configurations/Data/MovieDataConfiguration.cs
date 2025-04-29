@@ -19,6 +19,7 @@ public sealed class MovieDataConfiguration : IEntityTypeConfiguration<MovieData>
         builder.Property(x => x.AgeRating);
         builder.Property(x => x.Description);
         builder.Property(x => x.Duration);
-        builder.Property(x => x.Genre);
+        builder.Property(x => x.Genre)
+            .HasColumnName("Genres");
     }
 }
