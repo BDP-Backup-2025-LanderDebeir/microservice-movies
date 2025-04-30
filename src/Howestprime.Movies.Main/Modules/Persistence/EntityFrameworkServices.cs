@@ -61,7 +61,8 @@ public static class EntityFrameworkServices
         return services
             .AddScoped<IFindMovieQuery, EFFindMovieQuery>()
             .AddScoped<IFindMovieByIdQuery, EFFindMovieByIdQuery>()
-            .AddScoped<IFindMovieByIdWithEventsQuery, EFFindMovieByIdWithEventsQuery>();
+            .AddScoped<IFindMovieByIdWithEventsQuery, EFFindMovieByIdWithEventsQuery>()
+            .AddScoped<IAllMovieEventsQuery, EFAllMovieEventsQuery>();
     }
     
     public static WebApplication ApplyMigrations(this WebApplication app)
