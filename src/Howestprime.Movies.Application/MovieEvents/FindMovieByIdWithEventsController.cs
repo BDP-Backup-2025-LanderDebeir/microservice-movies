@@ -17,6 +17,11 @@ public class FindMovieByIdWithEvents(
 
     public async Task<MovieData> Execute(FindMovieByIdWithEventsInput input)
     {
-        return await _query.Fetch(input.MovieId) ?? throw new NotFoundException($"Movie with id {input.MovieId} not found");
+        MovieData movie = await _query.Fetch(input.MovieId) ?? throw new NotFoundException($"No movie with id {input.MovieId} found");
+
+        if (movie.Events.Count <= 0)
+            throw new NotFoundException($"Movie with id {input.MovieId} has no events planned within 14 days");
+
+        return movie;
     }
 }
