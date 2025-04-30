@@ -17,7 +17,8 @@ public static class UseCaseServices
             .AddFindMovieByFilter()
             .AddFindMovieById()
             .AddScheduleMovieEvent()
-            .AddFindMovieByIdWithEvents();
+            .AddFindMovieByIdWithEvents()
+            .AddFindMovieEventsForMonth();
     }
 
     private static IServiceCollection AddRegisterMovie(this IServiceCollection services)
@@ -73,6 +74,16 @@ public static class UseCaseServices
             {
                 var query = ServiceProvider.GetRequiredService<IFindMovieByIdWithEventsQuery>();
                 return new FindMovieByIdWithEvents(query);
+            });
+    }
+
+    private static IServiceCollection AddFindMovieEventsForMonth(this IServiceCollection services)
+    {
+        return services
+            .AddScoped<IUseCase<FindMovieEventsForMonthInput, Task<IReadOnlyList<MovieEventData>>>>(ServiceProvider =>
+            {
+                var query = ServiceProvider.GetRequiredService<IAllMovieEventsQuery>();
+                return new FindMovieEventsForMonth(query);
             });
     }
 }
