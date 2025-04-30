@@ -11,4 +11,5 @@ public sealed record MovieData
     public required int Duration { get; set; }
     public required string Actors { get; set; }
     public required string Description { get; set; }
+    public required List<MovieEventData> Events { get; set; }
 }
