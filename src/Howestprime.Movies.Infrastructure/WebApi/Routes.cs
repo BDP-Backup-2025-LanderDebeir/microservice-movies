@@ -68,5 +68,11 @@ public static class Routes
             .WithMetadata(new ConsumesAttribute(MediaTypeNames.Application.Json))
             .AddEndpointFilter<BodyValidatorFilter<ScheduleMovieEventBody>>()
             .WithOpenApi();
+
+        movieEventGroup.MapGet("/movie", FindMovieByIdWithEventsController.Invoke)
+            .WithName("FindMovieByIdWithEvent")
+            .WithDescription("List all movie events for a specific movie")
+            .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
+            .WithOpenApi();
     }
 }
