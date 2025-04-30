@@ -6,9 +6,9 @@ using System.Linq.Expressions;
 
 namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Queries;
 
-public sealed class EFFindMovieQuery(
+public sealed class EFAllMoviesQuery(
     QueryContextBase context
-    ) : IFindMovieQuery
+    ) : IAllMoviesQuery
 {
     private readonly QueryContextBase _context = context;
 

@@ -39,7 +39,7 @@ public static class UseCaseServices
         return services
             .AddScoped<IUseCase<FindMovieByFilterInput, Task<IReadOnlyList<MovieData>>>>(ServiceProvider =>
             {
-                var query = ServiceProvider.GetRequiredService<IFindMovieQuery>();
+                var query = ServiceProvider.GetRequiredService<IAllMoviesQuery>();
                 return new FindMovieByFilter(query);
             });
     }

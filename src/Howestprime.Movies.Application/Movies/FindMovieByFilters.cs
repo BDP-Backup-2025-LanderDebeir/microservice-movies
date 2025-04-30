@@ -11,10 +11,10 @@ public sealed record FindMovieByFilterInput(
     );
 
 public class FindMovieByFilter(
-    IFindMovieQuery query
+    IAllMoviesQuery query
     ) : IUseCase<FindMovieByFilterInput, Task<IReadOnlyList<MovieData>>>
 {
-    private IFindMovieQuery _query = query;
+    private IAllMoviesQuery _query = query;
 
     public async Task<IReadOnlyList<MovieData>> Execute(FindMovieByFilterInput input)
     {

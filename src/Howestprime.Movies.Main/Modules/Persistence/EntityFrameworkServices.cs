@@ -59,7 +59,7 @@ public static class EntityFrameworkServices
     )
     {
         return services
-            .AddScoped<IFindMovieQuery, EFFindMovieQuery>()
+            .AddScoped<IAllMoviesQuery, EFAllMoviesQuery>()
             .AddScoped<IFindMovieByIdQuery, EFFindMovieByIdQuery>()
             .AddScoped<IFindMovieByIdWithEventsQuery, EFFindMovieByIdWithEventsQuery>()
             .AddScoped<IAllMovieEventsQuery, EFAllMovieEventsQuery>();
