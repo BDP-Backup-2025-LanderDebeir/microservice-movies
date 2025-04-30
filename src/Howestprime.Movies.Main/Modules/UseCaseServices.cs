@@ -16,7 +16,8 @@ public static class UseCaseServices
             .AddRegisterMovie()
             .AddFindMovieByFilter()
             .AddFindMovieById()
-            .AddScheduleMovieEvent();
+            .AddScheduleMovieEvent()
+            .AddFindMovieByIdWithEvents();
     }
 
     private static IServiceCollection AddRegisterMovie(this IServiceCollection services)
@@ -62,6 +63,16 @@ public static class UseCaseServices
                 var unitOfWork = ServiceProvider.GetRequiredService<IUnitOfWork>();
                 var logger = ServiceProvider.GetRequiredService<ILogger<ScheduleMovieEvent>>();
                 return new ScheduleMovieEvent(movieEventRepository, movieRepository, unitOfWork, logger);
+            });
+    }
+
+    private static IServiceCollection AddFindMovieByIdWithEvents(this IServiceCollection services)
+    {
+        return services
+            .AddScoped<IUseCase<FindMovieByIdWithEventsInput, Task<MovieData>>>(ServiceProvider =>
+            {
+                var query = ServiceProvider.GetRequiredService<IFindMovieByIdWithEventsQuery>();
+                return new FindMovieByIdWithEvents(query);
             });
     }
 }
