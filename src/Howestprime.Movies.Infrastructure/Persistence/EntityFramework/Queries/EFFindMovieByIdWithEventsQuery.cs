@@ -14,7 +14,7 @@ public sealed class EFFindMovieByIdWithEventsQuery(
     public async Task<MovieData?> Fetch(string id)
     {
         return await _context.Movies
-            .Include(m => m.Events)
+            .Include(m => m.Events.Select(e => e.Time.DayOfYear <= 14))
             .FirstOrDefaultAsync(m => m.Id == id);
     }
 }
