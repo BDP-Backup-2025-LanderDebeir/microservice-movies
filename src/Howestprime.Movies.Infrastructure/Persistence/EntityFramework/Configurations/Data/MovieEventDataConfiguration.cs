@@ -19,7 +19,7 @@ public sealed class MovieEventDataConfiguration : IEntityTypeConfiguration<Movie
 
         builder.Property(x => x.MovieId);
 
-        builder.HasOne(x => x.Movie).WithMany().HasForeignKey(x => x.MovieId);
+        builder.HasOne(x => x.Movie).WithMany(m => m.Events).HasForeignKey(x => x.MovieId);
         builder.HasOne(x => x.Room).WithMany().HasForeignKey(x => x.RoomId);
     }
 }

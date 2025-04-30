@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migrations.PostgreSQL
 {
     [DbContext(typeof(DomainContextPostgres))]
-    [Migration("20250430073519_AddDataConfigurations")]
-    partial class AddDataConfigurations
+    [Migration("20250430090127_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

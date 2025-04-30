@@ -1,6 +1,7 @@
 ﻿using Domaincrafters.Application;
 using Howestprime.Movies.Application.Contracts.Data;
 using Howestprime.Movies.Application.MovieEvents;
+using Howestprime.Movies.Domain.Shared.Exceptions;
 using Howestprime.Movies.Infrastructure.WebApi.Controllers.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -17,14 +18,21 @@ public sealed record FindMovieByIdWithEventsParameters
 
 public sealed class FindMovieByIdWithEventsController
 {
-    public static async Task<Results<Ok<MovieWithEventsDTO>, NotFound>> Invoke(
+    public static async Task<Results<Ok<MovieWithEventsDTO>, NotFound<string>>> Invoke(
         [AsParameters] FindMovieByIdWithEventsParameters parameters,
-        [FromServices] IUseCase<FindMovieByIdWithEventsInput, MovieData> findMovieByIdWithEvents
+        [FromServices] IUseCase<FindMovieByIdWithEventsInput, Task<MovieData>> findMovieByIdWithEvents
         )
     {
-        FindMovieByIdWithEventsInput input = new(parameters.MovieId.ToString());
-        MovieData movie = findMovieByIdWithEvents.Execute(input);
-        return TypedResults.Ok(BuildResponse(movie));
+        try
+        {
+            FindMovieByIdWithEventsInput input = new(parameters.MovieId.ToString());
+            MovieData movie = await findMovieByIdWithEvents.Execute(input);
+            return TypedResults.Ok(BuildResponse(movie));
+        }
+        catch(NotFoundException e)
+        {
+            return TypedResults.NotFound(e.Message);
+        }
     }
 
     private static MovieWithEventsDTO BuildResponse(MovieData movie)

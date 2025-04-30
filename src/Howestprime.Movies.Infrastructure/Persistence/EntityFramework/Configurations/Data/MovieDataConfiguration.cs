@@ -21,6 +21,5 @@ public sealed class MovieDataConfiguration : IEntityTypeConfiguration<MovieData>
         builder.Property(x => x.Duration);
         builder.Property(x => x.Genre)
             .HasColumnName("Genres");
-        builder.HasMany(x => x.Events).WithOne().HasForeignKey("MovieId").IsRequired();
     }
 }
