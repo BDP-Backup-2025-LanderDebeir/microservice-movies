@@ -17,3 +17,8 @@ public interface IFindMovieByIdWithEventsQuery
 {
     Task<MovieData?> Fetch(string id);
 }
+
+public interface IAllMovieEventsQuery
+{
+    Task<IReadOnlyList<MovieEventData>> Fetch(Expression<Func<MovieEventData, bool>> filter);
+}
