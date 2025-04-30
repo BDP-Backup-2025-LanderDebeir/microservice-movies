@@ -19,6 +19,8 @@ public class FindMovieByIdWithEvents(
     {
         MovieData movie = await _query.Fetch(input.MovieId) ?? throw new NotFoundException($"No movie with id {input.MovieId} found");
 
+        movie.Events = movie.Events.Where(e => (e.Time.Year - DateTime.Now.Year == 0 || e.Time.Year - DateTime.Now.Year == 1) && (e.Time.DayOfYear - DateTime.Now.DayOfYear >= 0 && e.Time.DayOfYear - DateTime.Now.DayOfYear <= 14)).ToList();
+
         if (movie.Events.Count <= 0)
             throw new NotFoundException($"Movie with id {input.MovieId} has no events planned within 14 days");
 
