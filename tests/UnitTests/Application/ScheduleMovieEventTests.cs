@@ -1,6 +1,7 @@
 ﻿using Howestprime.Movies.Application.MovieEvents;
 using Howestprime.Movies.Domain.Movie;
 using Howestprime.Movies.Domain.MovieEvent;
+using System.Net.NetworkInformation;
 using UnitTests.Shared;
 
 namespace UnitTests.Application;
@@ -58,5 +59,31 @@ public class ScheduleMovieEventTests
         //Act + Assert
         _ = await Assert.ThrowsAsync<InvalidOperationException>(async () => await _scheduleMovieEvent.Execute(input));
         Assert.Empty(_movieEventRepository.SavedMovieEvents);
+    }
+
+    [Fact]
+    public async Task Execute_WithEventPresent_ShouldOverwrite()
+    {
+        //Arrange
+        Room room = new(new RoomId(), "Velet Room", 100);
+        _movieEventRepository.Rooms.Add(room);
+        Movie movie = Movie.Create("A minecraft movie", "It's minecrafting time", 2025, 120, "Every Genre", "Jack Black, Jason Momoa", 3, "example.com/poster.png");
+        await _movieRepository.Save(movie);
+
+        DateTime time = new(2099, 12, 31, 15, 0, 0);
+
+        MovieEvent anotherEvent = MovieEvent.Create(new(), room.Id, time, 100);
+        _movieEventRepository.MovieEvents.Add(anotherEvent);
+
+        ScheduleMovieEventInput input = new(movie.Id.Value, time, room.Id.Value);
+
+        //Act
+        var eventId = await _scheduleMovieEvent.Execute(input);
+
+        //Assert
+        Assert.Single(_movieEventRepository.MovieEvents);
+        Assert.DoesNotContain(anotherEvent, _movieEventRepository.MovieEvents);
+        var movieEvent = _movieEventRepository.MovieEvents[0];
+        Assert.Equal(eventId, movieEvent.Id.Value);
     }
 }

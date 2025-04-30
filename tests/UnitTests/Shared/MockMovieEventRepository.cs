@@ -13,23 +13,25 @@ public sealed class MockMovieEventRepository : IMovieEventRepository
     public Task<Optional<MovieEvent>> ById(MovieEventId id)
     {
         var movieEvent = MovieEvents.SingleOrDefault(m => m.Id == id);
-        return Task.FromResult(Optional.Of<MovieEvent>(movieEvent));
+        return Task.FromResult(Optional.Of(movieEvent));
     }
 
     public Task<Optional<MovieEvent>> FindByTimeAndRoom(DateTime time, RoomId roomId)
     {
-        throw new NotImplementedException();
+        var movieEvent = MovieEvents.FirstOrDefault(e => e.Time.Hour == time.Hour && e.RoomId == roomId);
+        return Task.FromResult(Optional.Of(movieEvent));
     }
 
     public Task<Optional<Room>> GetRoomById(RoomId id)
     {
         var room = Rooms.SingleOrDefault(m => m.Id == id);
-        return Task.FromResult(Optional.Of<Room>(room));
+        return Task.FromResult(Optional.Of(room));
     }
 
     public Task Remove(MovieEvent entity)
     {
-        throw new NotImplementedException();
+        MovieEvents.Remove(entity);
+        return Task.CompletedTask;
     }
 
     public Task Save(MovieEvent entity)
