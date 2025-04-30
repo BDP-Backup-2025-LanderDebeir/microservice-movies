@@ -38,7 +38,7 @@ public sealed class FindMovieByFiltersController
     {
         return new MoviesDTO(
             movies.Select(movie => new MovieDTO(
-                movie.Id,
+                new Guid(movie.Id),
                 movie.Title,
                 movie.Genre,
                 movie.Description,

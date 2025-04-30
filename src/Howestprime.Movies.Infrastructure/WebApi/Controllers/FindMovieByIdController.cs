@@ -34,7 +34,7 @@ public sealed class FindMovieByIdController
     private static MovieDTO BuildResponse(MovieData movie)
     {
         return new MovieDTO(
-            movie.Id,
+            new Guid(movie.Id),
             movie.Title,
             movie.Genre,
             movie.Description,
