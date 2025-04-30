@@ -20,7 +20,7 @@ public sealed record FindMovieEventsForMonthParameters
 
 public sealed class FindMovieEventsForMonthController
 {
-    public static async Task<Results<Ok<MovieEventsDTO>, BadRequest<string>> Invoke(
+    public static async Task<Results<Ok<MovieEventsDTO>, BadRequest<string>>> Invoke(
         [AsParameters] FindMovieEventsForMonthParameters parameters,
         [FromServices] IUseCase<FindMovieEventsForMonthInput, Task<IReadOnlyList<MovieEventData>>> findMovieEventsForMonth
         )

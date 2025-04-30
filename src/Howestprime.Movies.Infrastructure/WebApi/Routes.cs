@@ -74,5 +74,10 @@ public static class Routes
             .WithDescription("List all movie events for a specific movie")
             .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
             .WithOpenApi();
+        movieEventGroup.MapGet("/monthly", FindMovieEventsForMonthController.Invoke)
+            .WithName("FindMovieEventsForMonth")
+            .WithDescription("List all movie events for a specific month.")
+            .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
+            .WithOpenApi();
     }
 }
