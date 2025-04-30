@@ -23,7 +23,7 @@ public interface IAllMovieEventsQuery
     Task<IReadOnlyList<MovieEventData>> Fetch(Expression<Func<MovieEventData, bool>> filter);
 }
 
-public interface IAllMovieWithEventsQuery
+public interface IAllMoviesWithEventsQuery
 {
     Task<IReadOnlyList<MovieData>> Fetch(Expression<Func<MovieData, bool>> filter);
 }
