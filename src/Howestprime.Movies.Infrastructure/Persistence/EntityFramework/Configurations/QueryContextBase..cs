@@ -7,6 +7,8 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configur
 public abstract class QueryContextBase : DbContext
 {
     public DbSet<MovieData> Movies { get; set; }
+    public DbSet<RoomData> Rooms { get; set; }
+    public DbSet<MovieEventData> MovieEvents { get; set; }
 
     protected QueryContextBase()
     {
@@ -16,6 +18,8 @@ public abstract class QueryContextBase : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new MovieDataConfiguration());
+        modelBuilder.ApplyConfiguration(new RoomDataConfiguration());
+        modelBuilder.ApplyConfiguration(new MovieEventDataConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 }
