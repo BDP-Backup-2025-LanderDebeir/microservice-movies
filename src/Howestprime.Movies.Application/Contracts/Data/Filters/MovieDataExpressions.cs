@@ -8,9 +8,4 @@ public static class MovieDataExpressions
     {
         return movieData => movieData.Title.ToLower().Contains(title.ToLower()) && movieData.Genre.ToLower().Contains(genre.ToLower());
     }
-
-    public static Expression<Func<MovieEventData, bool>> EventsInMonthAndYear(int month, int year)
-    {
-        return movieEventData => movieEventData.Time.Year == year && movieEventData.Time.Month == month;
-    }
 }
