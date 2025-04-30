@@ -1,7 +1,5 @@
-/*
-using Howestprime.Movies.Domain.Facilities;
-using Howestprime.Movies.Domain.Movies;
-*/
+using Howestprime.Movies.Domain.Movie;
+using Howestprime.Movies.Domain.MovieEvent;
 using Microsoft.EntityFrameworkCore;
 
 namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations;
@@ -12,9 +10,8 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configur
 
 public static class Seeder
 {
-    /*
     private static readonly IList<Movie> _movies = [
-        Movie.Create(new MovieId("ebfb9308-6c61-4608-af77-394448808e9b"),
+        Movie.Create(
         "The Matrix",
         "A computer hacker learns from mysterious rebels about the true nature of his reality",
         1999,
@@ -22,9 +19,10 @@ public static class Seeder
         "Sci-fi",
         "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
         16,
-        "https://www.imdb.com/title/tt0133093/"),
+        "https://www.imdb.com/title/tt0133093/",
+        new MovieId("ebfb9308-6c61-4608-af77-394448808e9b")),
 
-        Movie.Create(new MovieId("fb258d1a-10a2-4bf9-85cd-ca83585d1ee5"),
+        Movie.Create(
         "The Matrix Reloaded",
         "The human city of Zion defends itself against the massive invasion of the machines as Neo fights to end the war at another front while also opposing the rogue Agent Smith.",
         2003,
@@ -32,20 +30,18 @@ public static class Seeder
         "Sci-fi",
         "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
         16,
-        "https://www.imdb.com/title/tt0234215/")
+        "https://www.imdb.com/title/tt0234215/",
+        new MovieId("fb258d1a-10a2-4bf9-85cd-ca83585d1ee5")),
     ];
     
     private static readonly IList<Room> _rooms = [
         Room.Create("Room 1", 100, new("f38145ab-9f1e-4778-90f4-b911fb5e15a7")),
         Room.Create("Room 2", 200, new("45bfe58a-c9ba-44b6-911e-c1387f6e1ace"))
     ];
-    */
 
     public static void Seed(this ModelBuilder modelBuilder)
     {
-        /*
         modelBuilder.Entity<Room>().HasData(_rooms);
         modelBuilder.Entity<Movie>().HasData(_movies);
-        */
     }
 }

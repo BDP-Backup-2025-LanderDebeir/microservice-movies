@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migrations.PostgreSQL
 {
     [DbContext(typeof(DomainContextPostgres))]
-    [Migration("20250429182434_MakeMovieEvents")]
-    partial class MakeMovieEvents
+    [Migration("20250430065422_AddSeeder")]
+    partial class AddSeeder
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,34 +32,29 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migratio
 
                     b.Property<string>("Actors")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("text");
 
                     b.Property<int>("AgeRating")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Duration")
                         .HasColumnType("integer");
 
                     b.Property<string>("Genres")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PosterUrl")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Year")
                         .HasColumnType("integer");
@@ -67,6 +62,32 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migratio
                     b.HasKey("Id");
 
                     b.ToTable("Movies", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ebfb9308-6c61-4608-af77-394448808e9b",
+                            Actors = "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
+                            AgeRating = 16,
+                            Description = "A computer hacker learns from mysterious rebels about the true nature of his reality",
+                            Duration = 136,
+                            Genres = "Sci-fi",
+                            PosterUrl = "https://www.imdb.com/title/tt0133093/",
+                            Title = "The Matrix",
+                            Year = 1999
+                        },
+                        new
+                        {
+                            Id = "fb258d1a-10a2-4bf9-85cd-ca83585d1ee5",
+                            Actors = "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
+                            AgeRating = 16,
+                            Description = "The human city of Zion defends itself against the massive invasion of the machines as Neo fights to end the war at another front while also opposing the rogue Agent Smith.",
+                            Duration = 138,
+                            Genres = "Sci-fi",
+                            PosterUrl = "https://www.imdb.com/title/tt0234215/",
+                            Title = "The Matrix Reloaded",
+                            Year = 2003
+                        });
                 });
 
             modelBuilder.Entity("Howestprime.Movies.Domain.MovieEvent.MovieEvent", b =>
@@ -95,8 +116,6 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migratio
 
                     b.HasIndex("MovieId");
 
-                    b.HasIndex("RoomId");
-
                     b.ToTable("MovieEvents", (string)null);
                 });
 
@@ -116,6 +135,20 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migratio
                     b.HasKey("Id");
 
                     b.ToTable("Rooms", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "f38145ab-9f1e-4778-90f4-b911fb5e15a7",
+                            Capacity = 100,
+                            Name = "Room 1"
+                        },
+                        new
+                        {
+                            Id = "45bfe58a-c9ba-44b6-911e-c1387f6e1ace",
+                            Capacity = 200,
+                            Name = "Room 2"
+                        });
                 });
 
             modelBuilder.Entity("Howestprime.Movies.Domain.MovieEvent.MovieEvent", b =>
@@ -123,12 +156,6 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migratio
                     b.HasOne("Howestprime.Movies.Domain.Movie.Movie", null)
                         .WithMany()
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Howestprime.Movies.Domain.MovieEvent.Room", null)
-                        .WithMany()
-                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

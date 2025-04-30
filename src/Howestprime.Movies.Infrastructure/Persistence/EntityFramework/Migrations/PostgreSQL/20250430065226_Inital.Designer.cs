@@ -3,6 +3,7 @@ using System;
 using Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migrations.PostgreSQL
 {
     [DbContext(typeof(DomainContextPostgres))]
-    partial class DomainContextPostgresModelSnapshot : ModelSnapshot
+    [Migration("20250430065226_Inital")]
+    partial class Inital
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,32 +62,6 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migratio
                     b.HasKey("Id");
 
                     b.ToTable("Movies", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "ebfb9308-6c61-4608-af77-394448808e9b",
-                            Actors = "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
-                            AgeRating = 16,
-                            Description = "A computer hacker learns from mysterious rebels about the true nature of his reality",
-                            Duration = 136,
-                            Genres = "Sci-fi",
-                            PosterUrl = "https://www.imdb.com/title/tt0133093/",
-                            Title = "The Matrix",
-                            Year = 1999
-                        },
-                        new
-                        {
-                            Id = "fb258d1a-10a2-4bf9-85cd-ca83585d1ee5",
-                            Actors = "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
-                            AgeRating = 16,
-                            Description = "The human city of Zion defends itself against the massive invasion of the machines as Neo fights to end the war at another front while also opposing the rogue Agent Smith.",
-                            Duration = 138,
-                            Genres = "Sci-fi",
-                            PosterUrl = "https://www.imdb.com/title/tt0234215/",
-                            Title = "The Matrix Reloaded",
-                            Year = 2003
-                        });
                 });
 
             modelBuilder.Entity("Howestprime.Movies.Domain.MovieEvent.MovieEvent", b =>
@@ -132,20 +109,6 @@ namespace Howestprime.Movies.Infrastructure.Persistence.EntityFramework.Migratio
                     b.HasKey("Id");
 
                     b.ToTable("Rooms", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "f38145ab-9f1e-4778-90f4-b911fb5e15a7",
-                            Capacity = 100,
-                            Name = "Room 1"
-                        },
-                        new
-                        {
-                            Id = "45bfe58a-c9ba-44b6-911e-c1387f6e1ace",
-                            Capacity = 200,
-                            Name = "Room 2"
-                        });
                 });
 
             modelBuilder.Entity("Howestprime.Movies.Domain.MovieEvent.MovieEvent", b =>

@@ -15,13 +15,13 @@ public class MovieConfiguration : IEntityTypeConfiguration<Movie>
             id => id.Value,
             value => new MovieId(value)
             );
-        builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
-        builder.Property(x => x.Description).IsRequired().HasMaxLength(100);
+        builder.Property(x => x.Title).IsRequired();
+        builder.Property(x => x.Description).IsRequired();
         builder.Property(x => x.Year).IsRequired();
         builder.Property(x => x.Duration).IsRequired();
-        builder.Property(x => x.Genres).IsRequired().HasMaxLength(1000);
-        builder.Property(x => x.Actors).IsRequired().HasMaxLength(1000);
+        builder.Property(x => x.Genres).IsRequired();
+        builder.Property(x => x.Actors).IsRequired();
         builder.Property(x => x.AgeRating).IsRequired();
-        builder.Property(x => x.PosterUrl).IsRequired().HasMaxLength(1000);
+        builder.Property(x => x.PosterUrl).IsRequired();
     }
 }
