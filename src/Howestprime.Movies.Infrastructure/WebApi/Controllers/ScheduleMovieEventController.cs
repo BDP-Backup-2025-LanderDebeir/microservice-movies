@@ -29,8 +29,7 @@ public sealed class ScheduleMovieEventController
         Console.WriteLine($"Schedule movie event invoked with body: {body}");
         ScheduleMovieEventInput input = new(
             body.MovieId.ToString(),
-            body.StartDate.TimeOfDay,
-            body.StartDate.Date,
+            body.StartDate,
             body.RoomId.ToString()
             );
 

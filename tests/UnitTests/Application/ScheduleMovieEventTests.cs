@@ -31,7 +31,7 @@ public class ScheduleMovieEventTests
         Movie movie = Movie.Create("A minecraft movie", "It's minecrafting time", 2025, 120, "Every Genre", "Jack Black, Jason Momoa", 3, "example.com/poster.png");
         await _movieRepository.Save(movie);
         DateTime time = new(2099, 12, 31, 15, 0, 0);
-        ScheduleMovieEventInput input = new(movie.Id.Value, time.TimeOfDay, time.Date, room.Id.Value);
+        ScheduleMovieEventInput input = new(movie.Id.Value, time, room.Id.Value);
 
         //Act
         var result = await _scheduleMovieEvent.Execute(input);
@@ -53,7 +53,7 @@ public class ScheduleMovieEventTests
     {
         //Arrange
         MovieId invalidId = new();
-        ScheduleMovieEventInput input = new(invalidId.Value, DateTime.Now.TimeOfDay, DateTime.Now.Date, new RoomId().Value);
+        ScheduleMovieEventInput input = new(invalidId.Value, DateTime.Now, new RoomId().Value);
 
         //Act + Assert
         _ = await Assert.ThrowsAsync<InvalidOperationException>(async () => await _scheduleMovieEvent.Execute(input));
