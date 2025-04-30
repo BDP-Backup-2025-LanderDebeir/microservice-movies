@@ -12,3 +12,8 @@ public interface IFindMovieByIdQuery
 {
     Task<MovieData?> Fetch(string id);
 }
+
+public interface IFindMovieByIdWithEventsQuery
+{
+    Task<MovieData?> Fetch(string id);
+}
