@@ -17,6 +17,13 @@ public sealed class EFMovieEventRepository(
             .ContinueWith(task => Optional.Of(task.Result));
     }
 
+    public Task<Optional<MovieEvent>> FindByTimeAndRoom(DateTime time, RoomId roomId)
+    {
+        return _context.MovieEvents
+            .FirstOrDefaultAsync(e => e.Time.Hour == time.Hour && e.RoomId == roomId)
+            .ContinueWith(task => Optional.Of(task.Result));
+    }
+
     public Task<Optional<Room>> GetRoomById(RoomId id)
     {
         return _context.Rooms

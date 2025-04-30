@@ -1,4 +1,4 @@
-﻿
+﻿using Aornis;
 using Domaincrafters.Application;
 using Howestprime.Movies.Domain.Movie;
 using Howestprime.Movies.Domain.MovieEvent;
@@ -32,6 +32,10 @@ public class ScheduleMovieEvent(
 
         Movie movie = (await _movieRepository.ById(movieId)).Value;
         Room room = (await _movieEventRepository.GetRoomById(roomId)).Value;
+        Optional<MovieEvent> existingEvent = await _movieEventRepository.FindByTimeAndRoom(input.Date, roomId);
+
+        if (existingEvent.HasValue)
+            await _movieEventRepository.Remove(existingEvent.Value);
 
         MovieEvent movieEvent = MovieEvent.Create(movieId, roomId, time, room.Capacity);
         await _movieEventRepository.Save(movieEvent);

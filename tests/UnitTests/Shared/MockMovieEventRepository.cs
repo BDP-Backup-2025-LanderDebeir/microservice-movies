@@ -16,6 +16,11 @@ public sealed class MockMovieEventRepository : IMovieEventRepository
         return Task.FromResult(Optional.Of<MovieEvent>(movieEvent));
     }
 
+    public Task<Optional<MovieEvent>> FindByTimeAndRoom(DateTime time, RoomId roomId)
+    {
+        throw new NotImplementedException();
+    }
+
     public Task<Optional<Room>> GetRoomById(RoomId id)
     {
         var room = Rooms.SingleOrDefault(m => m.Id == id);
