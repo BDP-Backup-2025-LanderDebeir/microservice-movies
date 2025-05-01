@@ -75,6 +75,9 @@ public class MovieEvent : Entity<MovieEventId>
         }
 
         Bookings.Add(booking);
+        DomainEventPublisher
+            .Instance
+            .Publish(BookingOpened.Create(booking.Id.Value, MovieId.Value, RoomId.Value, Time, booking.StandardVisitors, booking.SeatNumbers));
     }
 }
 

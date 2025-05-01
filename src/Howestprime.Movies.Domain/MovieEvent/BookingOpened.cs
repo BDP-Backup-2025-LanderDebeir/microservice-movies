@@ -1,6 +1,6 @@
 ﻿using Howestprime.Movies.Domain.Shared;
 
-namespace Howestprime.Movies.Application.MovieEvents;
+namespace Howestprime.Movies.Domain.MovieEvent;
 
 public sealed class BookingOpened : HowestprimeDomainEvent
 {
