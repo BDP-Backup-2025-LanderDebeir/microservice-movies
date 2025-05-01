@@ -34,5 +34,6 @@ public sealed class MovieEventConfiguration : IEntityTypeConfiguration<MovieEven
         builder.Property(x => x.Time);
         builder.Property(x => x.Visitors);
         builder.Property(x => x.Capacity);
+        builder.HasMany(x => x.Bookings).WithOne().HasForeignKey(x => x.MovieEventId).IsRequired().OnDelete(DeleteBehavior.Cascade);
     }
 }
