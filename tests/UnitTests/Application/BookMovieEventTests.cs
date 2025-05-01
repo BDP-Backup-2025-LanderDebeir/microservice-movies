@@ -8,13 +8,15 @@ public sealed class BookMovieEventTests
 {
     private readonly MockMovieEventRepository _repository;
     private readonly MockUnitOfWork _unitOfWork;
+    private readonly MockTestLogger<BookMovieEvent> _logger;
     private readonly BookMovieEvent _bookMovieEvent;
 
     public BookMovieEventTests()
     {
         _repository = new();
         _unitOfWork = new();
-        _bookMovieEvent = new(_repository, _unitOfWork);
+        _logger = new();
+        _bookMovieEvent = new(_repository, _unitOfWork, _logger);
     }
 
     [Fact]

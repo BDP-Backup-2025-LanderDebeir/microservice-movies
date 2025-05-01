@@ -1,5 +1,7 @@
 ﻿using Domaincrafters.Application;
 using Howestprime.Movies.Domain.MovieEvent;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 namespace Howestprime.Movies.Application.MovieEvents;
 
@@ -11,11 +13,13 @@ public sealed record BookMovieEventInput(
 
 public class BookMovieEvent(
     IMovieEventRepository repository,
-    IUnitOfWork unitOfWork
+    IUnitOfWork unitOfWork,
+    ILogger<BookMovieEvent> logger
     ) : IUseCase<BookMovieEventInput, Task<string>>
 {
     private readonly IMovieEventRepository _repository = repository;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ILogger<BookMovieEvent> _logger = logger;
 
     public async Task<string> Execute(BookMovieEventInput input)
     {
@@ -30,6 +34,7 @@ public class BookMovieEvent(
         await _repository.Save(movieEvent);
         await _unitOfWork.Do();
 
+        _logger.LogInformation("booking {bookingId} booked", booking.Id);
         return booking.Id.Value;
     }
 }

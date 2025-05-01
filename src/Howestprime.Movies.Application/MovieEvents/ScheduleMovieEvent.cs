@@ -41,6 +41,7 @@ public class ScheduleMovieEvent(
         await _movieEventRepository.Save(movieEvent);
         await _unitOfWork.Do();
 
+        _logger.LogInformation("movie event {id} scheduled", movieId);
         return movieEvent.Id.Value;
     }
 }

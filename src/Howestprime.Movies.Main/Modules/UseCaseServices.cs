@@ -106,8 +106,9 @@ public static class UseCaseServices
             {
                 var repository = ServiceProvider.GetRequiredService<IMovieEventRepository>();
                 var unitOfWork = ServiceProvider.GetRequiredService<IUnitOfWork>();
+                var logger = ServiceProvider.GetRequiredService<ILogger<BookMovieEvent>> ();
 
-                return new BookMovieEvent(repository, unitOfWork);
+                return new BookMovieEvent(repository, unitOfWork, logger);
             });
     }
 }
