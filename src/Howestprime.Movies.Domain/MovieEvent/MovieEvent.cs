@@ -68,7 +68,7 @@ public class MovieEvent : Entity<MovieEventId>
         if (Visitors + booking.StandardVisitors + booking.DiscountVisitors > Capacity)
             throw new ArgumentException("Too many visitors");
 
-        for (int i = 0; i <= booking.StandardVisitors + booking.DiscountVisitors; i++)
+        for (int i = 0; i < booking.StandardVisitors + booking.DiscountVisitors; i++)
         {
             Visitors++;
             booking.SeatNumbers.Add(Visitors);

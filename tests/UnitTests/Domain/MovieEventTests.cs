@@ -64,4 +64,36 @@ public class MovieEventTests
         //Act + Assert
         Assert.Throws<ArgumentException>(() => MovieEvent.Create(movieId, roomId, time, 100, movieEventId));
     }
+
+    [Fact]
+    public void Book_WithValidBooking_ShouldAddToBookings()
+    {
+        //Arrange
+        MovieEventId movieEventId = new();
+        MovieEvent movieEvent = MovieEvent.Create(new(), new(), new(2099, 12, 31, 15, 0, 0), 100, movieEventId);
+        Booking booking = Booking.Create(movieEventId, 1, 1);
+
+        //Act
+        movieEvent.Book(booking);
+
+        //Assert
+        Assert.Single(movieEvent.Bookings);
+        var result = movieEvent.Bookings[0];
+
+        Assert.Equal(booking, result);
+        Assert.NotEmpty(result.SeatNumbers);
+        Assert.Equal(2, movieEvent.Visitors);
+    }
+
+    [Fact]
+    public void Book_WhenItsFull_ShouldThrowError()
+    {
+        //Arrange
+        MovieEventId movieEventId = new();
+        MovieEvent movieEvent = MovieEvent.Create(new(), new(), new(2099, 12, 31, 15, 0, 0), 1, movieEventId);
+        Booking booking = Booking.Create(movieEventId, 1, 1);
+
+        //Act + Assert
+        Assert.Throws<ArgumentException>(() => movieEvent.Book(booking));
+    }
 }

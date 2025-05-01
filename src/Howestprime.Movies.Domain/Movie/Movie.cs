@@ -116,6 +116,4 @@ public class Movie : Entity<MovieId>
             throw new ArgumentException("Poster url can not be empty");
         }
     }
-
-    private Movie() : base(new MovieId()) { }
 }
