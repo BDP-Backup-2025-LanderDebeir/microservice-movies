@@ -10,9 +10,11 @@ public sealed class EFMovieEventRepository(
     ) : IMovieEventRepository
 {
     private readonly DomainContextBase _context = context;
+
     public Task<Optional<MovieEvent>> ById(MovieEventId id)
     {
         return _context.MovieEvents
+            .Include(e => e.Bookings)
             .SingleOrDefaultAsync(e => e.Id == id)
             .ContinueWith(task => Optional.Of(task.Result));
     }
