@@ -12,6 +12,7 @@ public class MovieEvent : Entity<MovieEventId>
     public DateTime Time { get; private set; }
     public int Visitors { get; private set; }
     public int Capacity { get; private set; }
+    public List<Booking> Bookings { get; private set; }
 
     private MovieEvent(MovieEventId id, MovieId movieId, RoomId roomId, DateTime time, int capacity) : base(id)
     {
@@ -20,6 +21,7 @@ public class MovieEvent : Entity<MovieEventId>
         Time = time;
         Visitors = 0;
         Capacity = capacity;
+        Bookings = [];
     }
 
     public static MovieEvent Create(MovieId movieId, RoomId roomId, DateTime time, int capacity, MovieEventId? id = null)
@@ -59,6 +61,20 @@ public class MovieEvent : Entity<MovieEventId>
     {
         if (!((time.Hour == 15 && time.Minute == 0 && time.Second == 0) || (time.Hour == 19 && time.Minute == 0 && time.Second == 0)))
             throw new ArgumentException("Event has to at either 15:00 or 19:00");
+    }
+
+    public void Book(Booking booking)
+    {
+        if (Visitors + booking.StandardVisitors + booking.DiscountVisitors > Capacity)
+            throw new ArgumentException("Too many visitors");
+
+        for (int i = 0; i <= booking.StandardVisitors + booking.DiscountVisitors; i++)
+        {
+            Visitors++;
+            booking.SeatNumbers.Add(Visitors);
+        }
+
+        Bookings.Add(booking);
     }
 }
 
