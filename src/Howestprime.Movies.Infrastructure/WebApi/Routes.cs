@@ -86,5 +86,12 @@ public static class Routes
             .WithDescription("List all movie events per movie in the next two weeks")
             .WithMetadata(new ProducesAttribute(MediaTypeNames.Application.Json))
             .WithOpenApi();
+
+        movieEventGroup.MapPost("/{movieEventId}/bookings", BookMovieEventController.Invoke)
+            .WithName("BookMovieEvent")
+            .WithDescription("Book a movie Event")
+            .WithMetadata(new ConsumesAttribute(MediaTypeNames.Application.Json))
+            .AddEndpointFilter<BodyValidatorFilter<BookMovieEventBody>>()
+            .WithOpenApi();
     }
 }

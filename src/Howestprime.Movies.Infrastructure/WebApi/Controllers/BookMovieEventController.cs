@@ -16,15 +16,23 @@ public sealed record BookMovieEventBody
     public required int DiscountVisitors { get; set; }
 }
 
+public sealed record BookMovieEventParameters
+{
+    [Required]
+    public required Guid MovieEventId { get; set; }
+}
+
 public sealed class BookMovieEventController
 {
     public static async Task<Results<Created, BadRequest>> Invoke(
+        [AsParameters] BookMovieEventParameters parameters,
         [FromBody] BookMovieEventBody body,
-        [AsParameters] Guid movieEventId,
         [FromServices] IUseCase<BookMovieEventInput, Task<string>> bookMovieEvent)
     {
+        string movieEventId = parameters.MovieEventId.ToString();
+
         BookMovieEventInput input = new(
-            movieEventId.ToString(),
+            movieEventId,
             body.StandardVisitors,
             body.DiscountVisitors
         );
