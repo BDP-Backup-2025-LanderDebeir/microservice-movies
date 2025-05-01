@@ -19,7 +19,8 @@ public static class UseCaseServices
             .AddScheduleMovieEvent()
             .AddFindMovieByIdWithEvents()
             .AddFindMovieEventsForMonth()
-            .AddFindMovieWithEventsInTimespan();
+            .AddFindMovieWithEventsInTimespan()
+            .AddBookMovieEvent();
     }
 
     private static IServiceCollection AddRegisterMovie(this IServiceCollection services)
@@ -95,6 +96,18 @@ public static class UseCaseServices
             {
                 var query = ServiceProvider.GetRequiredService<IAllMoviesWithEventsQuery>();
                 return new FindMovieWithEventsInTimeFrame(query);
+            });
+    }
+
+    private static IServiceCollection AddBookMovieEvent(this IServiceCollection services)
+    {
+        return services
+            .AddScoped<IUseCase<BookMovieEventInput, Task<string>>>(ServiceProvider =>
+            {
+                var repository = ServiceProvider.GetRequiredService<IMovieEventRepository>();
+                var unitOfWork = ServiceProvider.GetRequiredService<IUnitOfWork>();
+
+                return new BookMovieEvent(repository, unitOfWork);
             });
     }
 }
