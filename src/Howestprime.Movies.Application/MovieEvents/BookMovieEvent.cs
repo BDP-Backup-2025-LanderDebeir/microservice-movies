@@ -29,8 +29,10 @@ public class BookMovieEvent(
         if (movieEvent.Time.Year - DateTime.Now.Year < 0 || movieEvent.Time.Year - DateTime.Now.Year > 1 || movieEvent.Time.DayOfYear - DateTime.Now.DayOfYear >= 14)
             throw new InvalidOperationException($"Bookings for the event with id {movieEventId} haven't opened yet");
 
+        Room room = (await _repository.GetRoomById(movieEvent.RoomId)).Value;
+
         Booking booking = Booking.Create(movieEventId, input.StandardVisitors, input.DiscountVisitors);
-        movieEvent.Book(booking);
+        movieEvent.Book(booking, room);
         await _repository.Save(movieEvent);
         await _unitOfWork.Do();
 

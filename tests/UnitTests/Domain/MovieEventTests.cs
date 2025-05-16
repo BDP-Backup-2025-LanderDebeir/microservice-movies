@@ -72,9 +72,10 @@ public class MovieEventTests
         MovieEventId movieEventId = new();
         MovieEvent movieEvent = MovieEvent.Create(new(), new(), new(2099, 12, 31, 15, 0, 0), 100, movieEventId);
         Booking booking = Booking.Create(movieEventId, 1, 1);
+        Room room = Room.Create("Velvet room", 100);
 
         //Act
-        movieEvent.Book(booking);
+        movieEvent.Book(booking, room);
 
         //Assert
         Assert.Single(movieEvent.Bookings);
@@ -92,8 +93,9 @@ public class MovieEventTests
         MovieEventId movieEventId = new();
         MovieEvent movieEvent = MovieEvent.Create(new(), new(), new(2099, 12, 31, 15, 0, 0), 1, movieEventId);
         Booking booking = Booking.Create(movieEventId, 1, 1);
+        Room room = Room.Create("Velvet room", 100);
 
         //Act + Assert
-        Assert.Throws<ArgumentException>(() => movieEvent.Book(booking));
+        Assert.Throws<ArgumentException>(() => movieEvent.Book(booking, room));
     }
 }

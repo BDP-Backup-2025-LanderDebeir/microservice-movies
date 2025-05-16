@@ -23,8 +23,10 @@ public sealed class BookMovieEventTests
     public async Task Execute_WithValidData_ShouldAddBooking()
     {
         //Arrange
+        Room room = Room.Create("Velvet room", 100);
+        _repository.Rooms.Add(room);
         MovieEventId movieEventId = new();
-        MovieEvent movieEvent = MovieEvent.Create(new(), new(), new(2026, 5, 10, 15, 0, 0), 100, movieEventId);
+        MovieEvent movieEvent = MovieEvent.Create(new(), room.Id, new(2026, 5, 10, 15, 0, 0), 100, movieEventId);
         await _repository.Save(movieEvent);
         BookMovieEventInput input = new(movieEventId.Value, 1, 0);
 

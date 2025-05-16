@@ -63,7 +63,7 @@ public class MovieEvent : Entity<MovieEventId>
             throw new ArgumentException("Event has to at either 15:00 or 19:00");
     }
 
-    public void Book(Booking booking)
+    public void Book(Booking booking, Room room)
     {
         if (Visitors + booking.StandardVisitors + booking.DiscountVisitors > Capacity)
             throw new ArgumentException("Too many visitors");
@@ -77,7 +77,7 @@ public class MovieEvent : Entity<MovieEventId>
         Bookings.Add(booking);
         DomainEventPublisher
             .Instance
-            .Publish(BookingOpened.Create(booking.Id.Value, MovieId.Value, RoomId.Value, Time, booking.StandardVisitors, booking.SeatNumbers));
+            .Publish(BookingOpened.Create(booking.Id.Value, MovieId.Value, room.Name, Time, booking.StandardVisitors, booking.SeatNumbers));
     }
 }
 
