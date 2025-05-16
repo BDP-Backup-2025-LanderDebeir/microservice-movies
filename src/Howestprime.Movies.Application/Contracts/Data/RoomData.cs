@@ -1,5 +1,8 @@
-﻿namespace Howestprime.Movies.Application.Contracts.Data;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Howestprime.Movies.Application.Contracts.Data;
+
+[ExcludeFromCodeCoverage]
 public sealed record RoomData
 {
     public required string Id { get; set; }

@@ -1,7 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 
 namespace Howestprime.Movies.Application.Contracts.Data.Filters;
 
+[ExcludeFromCodeCoverage]
 public static class MovieDataExpressions
 {
     public static Expression<Func<MovieData, bool>> TitleAndGenreContains(string title, string genre)
