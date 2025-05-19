@@ -38,7 +38,7 @@ public class Movie : Entity<MovieId>
 
         DomainEventPublisher
             .Instance
-            .Publish(MovieRegistered.Create(id.Value, title, description, year, duration, genres.Split(',').ToList(), actors, ageRating, posterUrl));
+            .Publish(MovieRegistered.Create(id.Value, title, description, year, duration, genres.Split(',').ToList(), ageRating, posterUrl));
 
         return movie;
     }
