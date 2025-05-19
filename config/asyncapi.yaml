@@ -158,9 +158,8 @@ components:
         MovieId:
           type: string
           format: uuid
-        RoomId:
+        Room:
           type: string
-          format: uuid
         Time:
           type: string
           format: date-time
@@ -181,7 +180,9 @@ components:
         Title:
           type: string
         Genre:
-          type: string
+          type: array
+          items:
+            type: string
         Actors:
           type: string
         Duration:
