@@ -17,7 +17,7 @@ public class FindMovieEventsForMonth(
     private readonly IAllMovieEventsQuery _query = query;
     public async Task<IReadOnlyList<MovieEventData>> Execute(FindMovieEventsForMonthInput input)
     {
-        if (input.Month <= 1 || input.Month >= 12 || input.Year < DateTime.Now.Year)
+        if (input.Month <= 0 || input.Month >= 13 || input.Year < DateTime.Now.Year)
             throw new InvalidOperationException("Invalid input data");
 
         return await _query.Fetch(MovieEventDataExpressions.EventsInMonthAndYear(input.Month, input.Year));
