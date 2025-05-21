@@ -31,7 +31,7 @@ public sealed class MovieEventConfiguration : IEntityTypeConfiguration<MovieEven
             value => new RoomId(value)
             );
 
-        builder.Property(x => x.Time);
+        builder.Property(x => x.Time).HasColumnType("timestamp(6)");
         builder.Property(x => x.Visitors);
         builder.Property(x => x.Capacity);
         builder.HasMany(x => x.Bookings).WithOne().HasForeignKey(x => x.MovieEventId).IsRequired().OnDelete(DeleteBehavior.Cascade);

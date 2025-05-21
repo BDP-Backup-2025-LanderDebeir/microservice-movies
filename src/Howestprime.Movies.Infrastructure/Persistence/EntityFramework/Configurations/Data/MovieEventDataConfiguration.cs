@@ -13,7 +13,7 @@ public sealed class MovieEventDataConfiguration : IEntityTypeConfiguration<Movie
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id);
 
-        builder.Property(x => x.Time);
+        builder.Property(x => x.Time).HasColumnType("timestamp(6)");
 
         builder.Property(x => x.RoomId);
 
