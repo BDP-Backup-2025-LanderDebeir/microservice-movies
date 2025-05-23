@@ -19,7 +19,7 @@ public static class Seeder
         "Sci-fi",
         "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
         16,
-        "https://www.imdb.com/title/tt0133093/",
+        "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_.jpg",
         new MovieId("ebfb9308-6c61-4608-af77-394448808e9b")),
 
         Movie.Create(
@@ -30,7 +30,7 @@ public static class Seeder
         "Sci-fi",
         "Keanu Reeves, Laurence Fishburne, Carrie-Anne Moss",
         16,
-        "https://www.imdb.com/title/tt0234215/",
+        "https://m.media-amazon.com/images/M/MV5BNjAxYjkxNjktYTU0YS00NjFhLWIyMDEtMzEzMTJjMzRkMzQ1XkEyXkFqcGc@._V1_.jpg",
         new MovieId("fb258d1a-10a2-4bf9-85cd-ca83585d1ee5")),
     ];
     
