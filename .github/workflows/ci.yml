@@ -79,7 +79,7 @@ jobs:
             dotnet-version: "8.x"
           
         - name: Publish the .NET APP
-          run: dotnet publish --os linux --arch x65 /t:PublishContainer /p:PublishProfile=production
+          run: dotnet publish --os linux --arch x64 /t:PublishContainer /p:PublishProfile=production
     
     deploy:
       needs: build
